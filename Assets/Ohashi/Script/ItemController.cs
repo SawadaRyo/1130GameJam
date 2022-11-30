@@ -1,32 +1,41 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
 
 public class ItemController : MonoBehaviour
 {
     [SerializeField, Tooltip("無敵時間のインターバル")]
-    private float _godInterval = 5f;
+    float _godInterval = 5f;
     [SerializeField, Tooltip("集金率アップのインターバル")]
-    private float _itemUpInterval = 5f;
-    [SerializeField]
-    private GameManager _gameManager;
-    [SerializeField]
-    private float _money = 10f;
-    [SerializeField]
-    private Text _t;
+    float _itemUpInterval = 5f;
+    [SerializeField, Tooltip("GameManagerを格納")]
+    GameManager _gameManager;
+    [SerializeField, Tooltip("アイテム購入に必要なお金1")]
+    float _needMoney1 = 10f;
+    [SerializeField, Tooltip("アイテム購入に必要なお金2")]
+    float _needMoney2 = 10f;
 
-    private bool _isGod = false;
-    private bool _isItemUp = false;
+    public FloatReactiveProperty NeedMoney1 = null;
+    public FloatReactiveProperty NeedMoney2 = null;
+
+    bool _isGod = false;
+    bool _isItemUp = false;
 
     public bool IsGod => _isGod;
+    private void Start()
+    {
+        NeedMoney1 = new FloatReactiveProperty(_needMoney1);
+        NeedMoney2 = new FloatReactiveProperty(_needMoney2);
+    }
     /// <summary>
     /// お金を使い一定時間無敵になる
     /// </summary>
     public void OnGodItem()
     {
-        if(!_isGod)
+        if (!_isGod)
         {
-            _gameManager.UseMoney(_money);
+            _gameManager.UseMoney(NeedMoney1.Value);
             StartCoroutine(EventInterval());
             Debug.Log("護衛");
         }
@@ -37,12 +46,12 @@ public class ItemController : MonoBehaviour
     /// </summary>
     public void OnItemUp()
     {
-        if(!_isItemUp && _gameManager.IsGame)
+        if (!_isItemUp && _gameManager.IsGame)
         {
-            _gameManager.UseMoney(_money);
+            _gameManager.UseMoney(NeedMoney2.Value);
             StartCoroutine(EventInterval2());
             //集金率を上げる
-            _gameManager.MoneyValueUp(0.2f);
+            _gameManager.MoneyValueUp(0.1f);
             Debug.Log("集金率アップ");
         }
     }
@@ -66,5 +75,11 @@ public class ItemController : MonoBehaviour
         _isItemUp = true;
         yield return new WaitForSeconds(_itemUpInterval);
         _isItemUp = false;
+    }
+
+    private void OnDisable()
+    {
+        NeedMoney1.Dispose();
+        NeedMoney2.Dispose();
     }
 }

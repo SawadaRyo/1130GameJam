@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField, Tooltip("初期カウントダウン")]
     float _countDownTime = 3f;
 
+    float _insValue = 1f;
+
     [Tooltip("ゲーム判定")]
     bool _isGame = false;
     [Tooltip("ゲーム内のスコア")]
@@ -52,7 +54,7 @@ public class GameManager : MonoBehaviour
     public void AddScoreAndMoney(float addValue)
     {
         _score.Value += addValue;
-        _money.Value += addValue;
+        _money.Value += addValue * _insValue;
     }
 
     /// <summary>
@@ -61,7 +63,7 @@ public class GameManager : MonoBehaviour
     /// <param name="addValue"></param>
     public void AddScore(float addValue)
     {
-        _score.Value += addValue;
+        _score.Value += addValue * _insValue;
     }
 
     /// <summary>
@@ -81,6 +83,14 @@ public class GameManager : MonoBehaviour
         _score.Value -= subtractionValue;
         _score.Value = _score.Value < 0 ? 0 : _score.Value;
     }
+    /// <summary>
+    /// 集金率UP
+    /// </summary>
+    /// <param name="upValue"></param>
+    public void MoneyValueUp(float upValue)
+    {
+        _insValue += upValue;
+    }
 
     IEnumerator TimeCount()
     {
@@ -94,7 +104,7 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
     }
-    IEnumerator CountDown()
+    public IEnumerator CountDown()
     {
         while (true)
         {

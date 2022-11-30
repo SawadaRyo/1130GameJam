@@ -5,9 +5,15 @@ using UniRx;
 using DG.Tweening;
 public class DoMoveAnimation : MonoBehaviour
 {
-    private void Start()
+    [SerializeField] Transform _parentTransform;
+    private void Awake()
     {
-        transform.DOLocalMove(new Vector3(10f, 0, 0), 1f)
-    .SetLoops(-1, LoopType.Yoyo);
+
+        foreach (Transform childTransfom in _parentTransform)
+        {
+
+            childTransfom.transform.DOLocalMoveX(0.2f, 6f)
+                .SetLoops(-1, LoopType.Yoyo);
+        }
     }
 }

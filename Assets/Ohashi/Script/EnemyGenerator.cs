@@ -6,19 +6,23 @@ public class EnemyGenerator : MonoBehaviour
     [SerializeField, Tooltip("スポーン位置")]
     private Transform[] _normalPos;
     [SerializeField, Tooltip("スポーンするオブジェクト")]
-    private GameObject[] _normalEnemy;
+    private NormalEnemyController[] _normalEnemy;
     [SerializeField, Tooltip("隕石のオブジェクト")]
-    private GameObject _specialEnemy;
+    private SpecialEnemyController _specialEnemy;
     [SerializeField, Tooltip("隕石のスポーン位置")]
     private Transform _specialPos;
+    [SerializeField]
+    private GameObject _target;
     [SerializeField, Tooltip("スポーンのインターバル")]
     private float _interval = 3f;
+    [SerializeField, Tooltip("アイテムのクラス")]
+    ItemController _itemController;
 
     private bool _isGenerate = false;
 
     private void Update()
     {
-        if(!_isGenerate)
+        if(!_isGenerate && !_itemController.IsGod)
         {
             StartCoroutine(GenerateInterval());
         }
@@ -44,11 +48,13 @@ public class EnemyGenerator : MonoBehaviour
         int posNum = Random.Range(0, _normalPos.Length);
         if (enemyNum == _normalEnemy.Length)
         {
-            Instantiate(_specialEnemy, _specialPos.position, _specialPos.rotation);
+            var special = Instantiate(_specialEnemy, _specialPos.position, _specialPos.rotation);
+            special.InIt(_target);
         }
         else
         {
-            Instantiate(_normalEnemy[enemyNum], _normalPos[posNum].position, _normalPos[posNum].rotation);
+            var normal = Instantiate(_normalEnemy[enemyNum], _normalPos[posNum].position, _normalPos[posNum].rotation);
+            normal.InIt(_target);
         }
     }
 }

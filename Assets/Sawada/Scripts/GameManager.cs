@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     public void AddScoreAndMoney(float addValue)
     {
         _score.Value += addValue;
-        _money.Value += addValue * _insValue;
+        _money.Value += (addValue * _insValue);
     }
 
     /// <summary>
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
     public void AddScore(float addValue)
     {
         CRIAudioManager.instance.CRIPlaySE(23);
-        _score.Value += addValue * _insValue;
+        _score.Value += (addValue * _insValue);
     }
 
     /// <summary>

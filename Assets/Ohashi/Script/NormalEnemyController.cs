@@ -13,6 +13,7 @@ public class NormalEnemyController : EnemyBase
 
     protected override void EnemyClick()
     {
+        CRIAudioManager.instance.CRIPlaySE(32);
         Destroy(_clickEnemy);
     }
 }

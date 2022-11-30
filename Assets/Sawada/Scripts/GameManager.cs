@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
     /// <param name="addValue"></param>
     public void AddScore(float addValue)
     {
+        CRIAudioManager.instance.CRIPlaySE(23);
         _score.Value += addValue * _insValue;
     }
 
@@ -72,6 +73,7 @@ public class GameManager : MonoBehaviour
     /// <param name="useValue"></param>
     public void UseMoney(float useValue)
     {
+        CRIAudioManager.instance.CRIPlaySE(10);
         _money.Value -= useValue;
     }
     /// <summary>
@@ -80,6 +82,7 @@ public class GameManager : MonoBehaviour
     /// <param name="subtractionValue"></param>
     public void SubtractionScore(float subtractionValue)
     {
+        CRIAudioManager.instance.CRIPlaySE(17);
         _score.Value -= subtractionValue;
         _score.Value = _score.Value < 0 ? 0 : _score.Value;
     }
@@ -89,6 +92,7 @@ public class GameManager : MonoBehaviour
     /// <param name="upValue"></param>
     public void MoneyValueUp(float upValue)
     {
+        CRIAudioManager.instance.CRIPlaySE(22);
         _insValue += upValue;
     }
 

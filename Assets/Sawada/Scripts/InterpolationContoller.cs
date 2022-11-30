@@ -29,7 +29,7 @@ public class InterpolationContoller
             x => _currentValue = x
             , endValue
             , _interpolationRaito)
-            .OnUpdate(() => _targetText.text = "Score:" + _currentValue.ToString("0000000000"))
-            .OnComplete(() => _targetText.text = "Score:" + endValue.ToString("0000000000"));
+            .OnUpdate(() => _targetText.text = _currentValue.ToString("00000"))
+            .OnComplete(() => _targetText.text = endValue.ToString("00000"));
     }
 }

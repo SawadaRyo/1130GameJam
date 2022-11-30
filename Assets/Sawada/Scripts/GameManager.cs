@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     float _fristTime = 120f;
     [SerializeField, Tooltip("初期カウントダウン")]
     float _countDownTime = 3f;
+    [SerializeField, Tooltip("初期制限時間")]
+    GameObject _panel = null;
 
     float _insValue = 1f;
 
@@ -44,6 +46,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         _isGame = false;
+        _panel.SetActive(true);
         StopCoroutine(TimeCount());
     }
 
@@ -101,7 +104,7 @@ public class GameManager : MonoBehaviour
         while (true)
         {
             _time.Value -= Time.deltaTime;
-            if (_time.Value <= 0)
+            if (_time.Value < 0)
             {
                 GameOver();
                 break;

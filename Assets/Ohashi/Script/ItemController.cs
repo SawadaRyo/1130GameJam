@@ -35,9 +35,13 @@ public class ItemController : MonoBehaviour
     {
         if (!_isGod)
         {
-            _gameManager.UseMoney(NeedMoney1.Value);
-            StartCoroutine(EventInterval());
-            Debug.Log("護衛");
+            if (_gameManager.MoneyValue.Value >= NeedMoney2.Value)
+            {
+                _gameManager.UseMoney(NeedMoney2.Value);
+                StartCoroutine(EventInterval());
+                Debug.Log("護衛");
+            }
+
         }
     }
 
@@ -48,11 +52,14 @@ public class ItemController : MonoBehaviour
     {
         if (!_isItemUp && _gameManager.IsGame)
         {
-            _gameManager.UseMoney(NeedMoney2.Value);
-            StartCoroutine(EventInterval2());
-            //集金率を上げる
-            _gameManager.MoneyValueUp(0.1f);
-            Debug.Log("集金率アップ");
+            if (_gameManager.MoneyValue.Value >= NeedMoney1.Value)
+            {
+                _gameManager.UseMoney(NeedMoney1.Value);
+                StartCoroutine(EventInterval2());
+                //集金率を上げる
+                _gameManager.MoneyValueUp(0.1f);
+                Debug.Log("集金率アップ");
+            }
         }
     }
 

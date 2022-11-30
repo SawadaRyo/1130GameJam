@@ -9,9 +9,11 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField, Tooltip("初期制限時間")]
     float _fristTime = 120f;
-    [SerializeField, Tooltip("初期制限時間")]
+    [SerializeField, Tooltip("初期カウントダウン")]
     float _countDownTime = 3f;
 
+    [Tooltip("ゲーム判定")]
+    bool _isGame = false;
     [Tooltip("ゲーム内のスコア")]
     FloatReactiveProperty _score = null;
     [Tooltip("ゲーム内のお金")]
@@ -21,6 +23,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("カウントダウン")]
     FloatReactiveProperty _countDown = null;
 
+    public bool IsGame => _isGame;
     public IReactiveProperty<float> ScoreValue => _score;
     public IReactiveProperty<float> MoneyValue => _money;
     public IReactiveProperty<float> TimeValue => _time;
@@ -28,6 +31,7 @@ public class GameManager : MonoBehaviour
 
     public void Init()
     {
+        _isGame = true;
         _score = new FloatReactiveProperty(0);
         _money = new FloatReactiveProperty(0);
         _time = new FloatReactiveProperty(_fristTime);

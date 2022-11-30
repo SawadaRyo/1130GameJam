@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class ItemController : MonoBehaviour
     private GameManager _gameManager;
     [SerializeField]
     private float _money = 10f;
+    [SerializeField]
+    private Text _t;
 
     private bool _isGod = false;
     private bool _isItemUp = false;

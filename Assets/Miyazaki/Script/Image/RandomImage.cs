@@ -16,7 +16,8 @@ public class RandomImage : MonoBehaviour
 
     void RandomSprite()
     {
-        int rnd = UnityEngine.Random.Range(1, 3);
+        int rnd = UnityEngine.Random.Range(1, 4);
+        Debug.Log(rnd);
         switch (rnd)
         {
             case 1:

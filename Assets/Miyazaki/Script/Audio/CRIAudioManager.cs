@@ -128,7 +128,7 @@ public class CRIAudioManager : MonoBehaviour
     }
     public void CRIRandomBGM()
     {
-        int rnd = UnityEngine.Random.Range(0, 8);
+        int rnd = UnityEngine.Random.Range(0, 9);
         Debug.Log(rnd);
         CRIPlayBGM(rnd);
     }

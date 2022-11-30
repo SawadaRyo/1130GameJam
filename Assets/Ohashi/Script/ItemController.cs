@@ -7,6 +7,10 @@ public class ItemController : MonoBehaviour
     private float _godInterval = 5f;
     [SerializeField, Tooltip("集金率アップのインターバル")]
     private float _itemUpInterval = 5f;
+    [SerializeField]
+    private GameManager _gameManager;
+    [SerializeField]
+    private float _money = 10f;
 
     private bool _isGod = false;
     private bool _isItemUp = false;
@@ -19,9 +23,9 @@ public class ItemController : MonoBehaviour
     {
         if(!_isGod)
         {
+            _gameManager.UseMoney(_money);
             StartCoroutine(EventInterval());
             Debug.Log("護衛");
-            //お金を減らす
         }
     }
 
@@ -30,11 +34,12 @@ public class ItemController : MonoBehaviour
     /// </summary>
     public void OnItemUp()
     {
-        if(!_isItemUp)
+        if(!_isItemUp && _gameManager.IsGame)
         {
+            _gameManager.UseMoney(_money);
             StartCoroutine(EventInterval2());
             //集金率を上げる
-            //お金を減らす
+            _gameManager.MoneyValueUp(0.2f);
             Debug.Log("集金率アップ");
         }
     }

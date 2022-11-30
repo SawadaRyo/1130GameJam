@@ -5,12 +5,12 @@ public class EnemyGenerator : MonoBehaviour
 {
     [SerializeField, Tooltip("スポーン位置")]
     private Transform[] _normalPos;
+    [SerializeField, Tooltip("スポーンするオブジェクト")]
+    private GameObject[] _normalEnemy;
+    [SerializeField, Tooltip("隕石のオブジェクト")]
+    private GameObject _specialEnemy;
     [SerializeField, Tooltip("隕石のスポーン位置")]
     private Transform _specialPos;
-    [SerializeField, Tooltip("スポーンするオブジェクト")]
-    private GameObject[] _enemy;
-    [SerializeField, Tooltip("隕石のスポーン位置")]
-    private GameObject _specialEnemy;
     [SerializeField, Tooltip("スポーンのインターバル")]
     private float _interval = 3f;
 
@@ -40,9 +40,15 @@ public class EnemyGenerator : MonoBehaviour
     /// </summary>
     private void Generate()
     {
-        int enemyNum = Random.Range(0, _enemy.Length);
+        int enemyNum = Random.Range(0, _normalEnemy.Length + 1);
         int posNum = Random.Range(0, _normalPos.Length);
-
-        Instantiate(_enemy[enemyNum], _normalPos[posNum].position, _normalPos[posNum].rotation);
+        if (enemyNum == _normalEnemy.Length)
+        {
+            Instantiate(_specialEnemy, _specialPos.position, _specialPos.rotation);
+        }
+        else
+        {
+            Instantiate(_normalEnemy[enemyNum], _normalPos[posNum].position, _normalPos[posNum].rotation);
+        }
     }
 }

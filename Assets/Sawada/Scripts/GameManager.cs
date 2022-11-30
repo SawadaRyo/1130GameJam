@@ -19,7 +19,9 @@ public class GameManager : MonoBehaviour
     
     public void Init()
     {
-        _score = new FloatReactiveProperty();
+        _score = new FloatReactiveProperty(0);
+        _money = new FloatReactiveProperty(0);
+        _time = new FloatReactiveProperty(300);
     }
 
 
@@ -43,5 +45,12 @@ public class GameManager : MonoBehaviour
     {
         _score.Value -= subtractionValue;
         _score.Value = _score.Value < 0 ? 0 : _score.Value;
+    }
+
+    private void OnDisable()
+    {
+        _score.Dispose();
+        _money.Dispose();
+        _time.Dispose();
     }
 }

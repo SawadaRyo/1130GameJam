@@ -39,6 +39,12 @@ public class GameManager : MonoBehaviour
         StartCoroutine(TimeCount());
     }
 
+    public void GameOver()
+    {
+        _isGame = false;
+        StopCoroutine(TimeCount());
+    }
+
     /// <summary>
     /// スコア、リソース追加
     /// </summary>

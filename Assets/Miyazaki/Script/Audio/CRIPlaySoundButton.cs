@@ -14,6 +14,5 @@ public class CRIPlaySoundButton : MonoBehaviour
     void ClickPlay()
     {
         CRIAudioManager.instance.CRIPlaySE(_playName);
-        Debug.Log("é¿çsÇ≥ÇÍÇΩ");
     }
 }

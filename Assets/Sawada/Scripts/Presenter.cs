@@ -19,8 +19,6 @@ public class Presenter : MonoBehaviour
     InterpolationContoller _interpolateScore = null;
     [Tooltip("Money—p‚ÌInterpolationContoller‚ðŠi”[")]
     InterpolationContoller _interpolateMoney = null;
-    [Tooltip("Time—p‚ÌInterpolationContoller‚ðŠi”[")]
-    InterpolationContoller _interpolateTime = null;
 
     void Start()
     {

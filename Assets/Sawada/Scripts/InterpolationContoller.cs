@@ -12,6 +12,8 @@ public class InterpolationContoller
     float _interpolationRaito = 0.1f;
     [Tooltip("Œ»Ý‚Ì’l")]
     float _currentValue = 0f;
+    [Tooltip("Å‘å’l")]
+    float _maxValue = 999999f;
     [Tooltip("‘ÎÛ‚ÌText")]
     Text _targetText = null;
 
@@ -25,11 +27,15 @@ public class InterpolationContoller
     //’l‚Ì•âŠÔ
     public void ChangeValue(float endValue)
     {
-        DOTween.To(() => _currentValue,
-            x => _currentValue = x
-            , endValue
-            , _interpolationRaito)
-            .OnUpdate(() => _targetText.text = _currentValue.ToString("00000"))
-            .OnComplete(() => _targetText.text = endValue.ToString("00000"));
+        var maxValue = Mathf.Min(endValue, _maxValue);
+        if(endValue <= _maxValue)
+        {
+            DOTween.To(() => _currentValue,
+           x => _currentValue = x
+           , endValue
+           , _interpolationRaito)
+           .OnUpdate(() => _targetText.text = _currentValue.ToString("00000"))
+           .OnComplete(() => _targetText.text = endValue.ToString("00000"));
+        }
     }
 }

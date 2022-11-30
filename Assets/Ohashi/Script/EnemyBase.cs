@@ -11,6 +11,7 @@ public abstract class EnemyBase : MonoBehaviour, IPointerClickHandler
     protected int _clickCount = 0;
     protected GameObject _clickEnemy;
     protected Rigidbody2D _rb2D;
+    private SpriteRenderer _sr;
 
     /// <summary>
     /// エネミーをクリックしたときの処理
@@ -29,6 +30,7 @@ public abstract class EnemyBase : MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
+        _sr = GetComponent<SpriteRenderer>();
         _rb2D = GetComponent<Rigidbody2D>();
         EnemyMove();
     }
@@ -38,6 +40,10 @@ public abstract class EnemyBase : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private void EnemyMove()
     {
+        if (transform.position.x < 0)
+        {
+            _sr.flipX = true;
+        }
         var distance = (_target.transform.position - transform.position).normalized;
         _rb2D.AddForce(distance * _moveSpeed, ForceMode2D.Impulse);
     }

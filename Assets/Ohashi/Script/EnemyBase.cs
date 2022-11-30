@@ -4,6 +4,10 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(Rigidbody2D))]
 public abstract class EnemyBase : MonoBehaviour, IPointerClickHandler
 {
+    [SerializeField, Tooltip("移動スピード")]
+    protected float _moveSpeed = 3f;
+
+    protected GameObject _target;
     protected int _clickCount = 0;
     protected GameObject _clickEnemy;
     protected Rigidbody2D _rb2D;
@@ -14,9 +18,14 @@ public abstract class EnemyBase : MonoBehaviour, IPointerClickHandler
     protected abstract void EnemyClick();
 
     /// <summary>
-    /// エネミーの移動
+    /// ターゲットに接触したときの処理
     /// </summary>
-    protected abstract void EnemyMove();
+    protected abstract void EnemHit();
+
+    public void InIt(GameObject target)
+    {
+        _target = target;
+    }
 
     private void Start()
     {
@@ -24,10 +33,27 @@ public abstract class EnemyBase : MonoBehaviour, IPointerClickHandler
         EnemyMove();
     }
 
+    /// <summary>
+    /// エネミーの移動処理
+    /// </summary>
+    private void EnemyMove()
+    {
+        var distance = (_target.transform.position - transform.position).normalized;
+        _rb2D.AddForce(distance * _moveSpeed, ForceMode2D.Impulse);
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         _clickEnemy = eventData.pointerCurrentRaycast.gameObject;
-        Debug.Log("aa");
+        Debug.Log("ヒット");
         EnemyClick();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject == _target)
+        {
+            EnemHit();
+        }
     }
 }

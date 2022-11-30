@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class SpecialEnemyController : EnemyBase
 {
-    [SerializeField]
+    [SerializeField, Tooltip("破壊に必要なクリック回数")]
     private int _destroyClickCount = 5;
-    [SerializeField]
-    private float _enemySpeed = 2f;
+
+    protected override void EnemHit()
+    {
+        throw new System.NotImplementedException();
+    }
 
     protected override void EnemyClick()
     {
@@ -14,10 +17,5 @@ public class SpecialEnemyController : EnemyBase
         {
             Destroy(_clickEnemy);
         }
-    }
-
-    protected override void EnemyMove()
-    {
-        _rb2D.AddForce(Vector2.down * _enemySpeed, ForceMode2D.Impulse);
     }
 }

@@ -103,7 +103,8 @@ public class GameManager : MonoBehaviour
             _time.Value -= Time.deltaTime;
             if (_time.Value <= 0)
             {
-
+                GameOver();
+                break;
             }
             yield return null;
         }

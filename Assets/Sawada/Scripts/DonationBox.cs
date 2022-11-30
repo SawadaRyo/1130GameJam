@@ -12,7 +12,7 @@ public class DonationBox : MonoBehaviour
         _resultPanel.SetActive(false);
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if(other.TryGetComponent<NormalEnemyController>(out var enemy))
         {

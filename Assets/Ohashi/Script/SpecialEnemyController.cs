@@ -1,18 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SpecialEnemyController : MonoBehaviour
+public class SpecialEnemyController : EnemyBase
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private int _destroyClickCount = 5;
+    [SerializeField]
+    private float _enemySpeed = 2f;
+
+    protected override void EnemyClick()
     {
-        
+        _clickCount++;
+        if(_clickCount >= _destroyClickCount)
+        {
+            Destroy(_clickEnemy);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void EnemyMove()
     {
-        
+        _rb2D.AddForce(Vector2.down * _enemySpeed, ForceMode2D.Impulse);
     }
 }

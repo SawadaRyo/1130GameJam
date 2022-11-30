@@ -76,7 +76,17 @@ public class CRIAudioManager : MonoBehaviour
     /// <param name="index">çƒê∂ÉiÉìÉoÅ[</param>
     public void CRIPlayBGM(int index)
     {
-        _criAtomExPlayback = _criAtomSourceBGM.Play(index);
+        CriAtomSource.Status status = _criAtomSourceBGM.status;
+        if ((status == CriAtomSource.Status.Stop) || (status == CriAtomSource.Status.PlayEnd))
+        {
+            _criAtomExPlayback = _criAtomSourceBGM.Play(index);
+            Debug.Log("neko");
+        }
+        else
+        {
+            _criAtomSourceBGM.Stop();
+            _criAtomExPlayback = _criAtomSourceBGM.Play(index);
+        }
     }
     /// <summary>
     /// BGMÇÃçƒê∂
@@ -115,5 +125,11 @@ public class CRIAudioManager : MonoBehaviour
     public void CRIPlaySE(int index)
     {
         _criAtomExPlayback = _criAtomSourceSE.Play(index);
+    }
+    public void CRIRandomBGM()
+    {
+        int rnd = UnityEngine.Random.Range(0, 8);
+        Debug.Log(rnd);
+        CRIPlayBGM(rnd);
     }
 }

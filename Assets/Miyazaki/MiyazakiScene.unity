@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _streamingAssetsPathACF: 1130GameJam
-  _cueSheetBGM: 
+  _cueSheetBGM: CueSheet_BGM
   _cueSheetSE: CueSheet_SE
   _volumeBGM: 1
   _volumeSE: 1

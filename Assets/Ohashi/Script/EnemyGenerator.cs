@@ -50,11 +50,13 @@ public class EnemyGenerator : MonoBehaviour
         {
             var special = Instantiate(_specialEnemy, _specialPos.position, _specialPos.rotation);
             special.InIt(_target);
+            CRIAudioManager.instance.CRIPlaySE(37);
         }
         else
         {
             var normal = Instantiate(_normalEnemy[enemyNum], _normalPos[posNum].position, _normalPos[posNum].rotation);
             normal.InIt(_target);
+            CRIAudioManager.instance.CRIPlaySE(36);
         }
     }
 }

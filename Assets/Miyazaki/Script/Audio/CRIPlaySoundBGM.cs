@@ -8,5 +8,6 @@ public class CRIPlaySoundBGM : MonoBehaviour
     private void Start()
     {
         CRIAudioManager.instance.CRIPlayBGM(_playNum);
+        Debug.Log("CRIPlayBGM");
     }
 }
